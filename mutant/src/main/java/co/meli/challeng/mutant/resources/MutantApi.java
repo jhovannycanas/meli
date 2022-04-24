@@ -1,6 +1,7 @@
 package co.meli.challeng.mutant.resources;
 
 import co.meli.challeng.mutant.model.dto.SequenceDto;
+import co.meli.challeng.mutant.model.dto.Stat;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -15,12 +16,13 @@ import javax.validation.Valid;
 
 @Validated
 @Api(value = "Mutant System")
+@RequestMapping(value = "/api/v1/mutants")
 public interface MutantApi {
 
     @ApiOperation(value = "Validate a DNA sequence", nickname = "mutant",
             notes = "<h3>Validates the DNA sequence of a mutant.</h3>", tags={ "Mutant", })
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "timestamping service created"),
+            @ApiResponse(code = 200, message = "ok"),
             @ApiResponse(code = 403, message = "request has been refused"),
             @ApiResponse(code = 500, message = "internal server error") })
     @RequestMapping(value = "/mutant",
@@ -28,4 +30,13 @@ public interface MutantApi {
             consumes = { "application/json" },
             method = RequestMethod.POST)
     ResponseEntity<Void> mutant(@Valid @RequestBody SequenceDto sequenceDto);
+
+    @ApiOperation(value = "Get statistics", nickname = "mutant",
+            notes = "<h3>Get statistics of validation of sequences.</h3>", tags={ "Mutant", })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "timestamping service created")})
+    @RequestMapping(value = "/stats",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    ResponseEntity<Stat> stat();
 }
