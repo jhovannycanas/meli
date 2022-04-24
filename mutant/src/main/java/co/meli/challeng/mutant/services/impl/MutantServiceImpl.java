@@ -1,5 +1,6 @@
 package co.meli.challeng.mutant.services.impl;
 
+import co.meli.challeng.mutant.exceptions.MutantException;
 import co.meli.challeng.mutant.model.dto.Stat;
 import co.meli.challeng.mutant.model.entities.SequenceDna;
 import co.meli.challeng.mutant.repositories.SequenceDnaRepository;
@@ -23,6 +24,10 @@ public class MutantServiceImpl implements MutantService {
 
         final int rows = dna.length;
         final int columns = dna[0].toCharArray().length;
+        if (rows < LENGTH_DNA_MUTANT || columns < MAX_LENGTH_SEARCH_DNA) {
+            throw new MutantException("the nitrogenous base of the DNA is not of the proper length");
+        }
+        this.validateStructureSequence(dna);
         boolean mutant = validateSequenceDna(dna, rows, columns);
         Optional<SequenceDna> sequenceDna = sequenceDnaRepository.findByDna(Arrays.toString(dna));
         if (sequenceDna.isPresent()) {
@@ -178,5 +183,14 @@ public class MutantServiceImpl implements MutantService {
             }
         }
         return acumulateDiagonalLeftToUp;
+    }
+
+    private void validateStructureSequence(String[] dna) {
+        final String REGEX = "[ACGT]+";
+        for (String sequence:dna) {
+            if (!sequence.toUpperCase().matches(REGEX)) {
+                throw new MutantException("the nitrogenous base of DNA does not have the expected structure: (A,T,C,G)");
+            }
+        }
     }
 }

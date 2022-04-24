@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 
-@Validated
-@Api(value = "Mutant System")
 @RequestMapping(value = "/api/v1/mutants")
+@Api(value = "Mutant System")
 public interface MutantApi {
 
     @ApiOperation(value = "Validate a DNA sequence", nickname = "mutant",
@@ -25,7 +24,7 @@ public interface MutantApi {
             @ApiResponse(code = 200, message = "ok"),
             @ApiResponse(code = 403, message = "request has been refused"),
             @ApiResponse(code = 500, message = "internal server error") })
-    @RequestMapping(value = "/mutant",
+    @RequestMapping(value = "/mutants",
             produces = { "application/json" },
             consumes = { "application/json" },
             method = RequestMethod.POST)

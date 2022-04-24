@@ -6,6 +6,7 @@ import co.meli.challeng.mutant.services.MutantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -15,7 +16,7 @@ public class MutantResource implements MutantApi{
     private final MutantService mutantService;
 
     @Override
-    public ResponseEntity<Void> mutant(SequenceDto sequenceDto) {
+    public ResponseEntity<Void> mutant(@Validated SequenceDto sequenceDto) {
         if (mutantService.isMutant(sequenceDto.getDna().toArray(new String[0]))){
             return ResponseEntity.ok().build();
         }
