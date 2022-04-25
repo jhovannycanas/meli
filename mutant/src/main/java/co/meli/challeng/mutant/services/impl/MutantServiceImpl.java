@@ -6,6 +6,8 @@ import co.meli.challeng.mutant.model.entities.SequenceDna;
 import co.meli.challeng.mutant.repositories.SequenceDnaRepository;
 import co.meli.challeng.mutant.services.MutantService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -20,6 +22,8 @@ public class MutantServiceImpl implements MutantService {
     final int MAX_LENGTH_SEARCH_DNA = 3;
 
     @Override
+    @CacheEvict(cacheNames = "stats", allEntries = true)
+    @Cacheable(cacheNames = "mutants")
     public boolean isMutant(String[] dna) {
 
         final int rows = dna.length;
@@ -39,6 +43,7 @@ public class MutantServiceImpl implements MutantService {
     }
 
     @Override
+    @Cacheable(cacheNames = "stats")
     public Stat getStat() {
         Long totalMutant = sequenceDnaRepository.countAllByIsMutantIsTrue();
         Long totalHuman = sequenceDnaRepository.countAllByIsMutantIsFalse();
@@ -87,6 +92,9 @@ public class MutantServiceImpl implements MutantService {
             while (left <= columns - MAX_LENGTH_SEARCH_DNA) {
                 if (dna[row].charAt(left) == dna[row].charAt(r)) {
                     r++;
+                    if (r == columns) {
+                        left = r;
+                    }
                     counter++;
                     if (counter == LENGTH_DNA_MUTANT) {
                         acumulateDnaRows++;
@@ -110,6 +118,9 @@ public class MutantServiceImpl implements MutantService {
             while (up <= columns - MAX_LENGTH_SEARCH_DNA) {
                 if (dna[up].charAt(column) == dna[down].charAt(column)) {
                     down++;
+                    if (down == columns) {
+                        up = down;
+                    }
                     counter++;
                     if (counter == LENGTH_DNA_MUTANT) {
                         acumulateDnaColumns++;

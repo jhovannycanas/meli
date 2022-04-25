@@ -53,7 +53,7 @@ class MutantResourceTest {
         SequenceDto sequenceDto = new SequenceDto();
         sequenceDto.setDna(Arrays.asList(dnaMutant));
         this.mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/v1/mutants/mutants")
+                MockMvcRequestBuilders.post("/api/v1/mutants/mutant")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(sequenceDto))
@@ -65,7 +65,7 @@ class MutantResourceTest {
         SequenceDto sequenceDto = new SequenceDto();
         sequenceDto.setDna(Arrays.asList(dnaHuman));
         this.mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/v1/mutants/mutants")
+                MockMvcRequestBuilders.post("/api/v1/mutants/mutant")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(sequenceDto))
@@ -77,7 +77,7 @@ class MutantResourceTest {
         SequenceDto sequenceDto = new SequenceDto();
         sequenceDto.setDna(Arrays.asList(dnaLength));
         this.mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/v1/mutants/mutants")
+                MockMvcRequestBuilders.post("/api/v1/mutants/mutant")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(sequenceDto))
@@ -89,7 +89,7 @@ class MutantResourceTest {
         SequenceDto sequenceDto = new SequenceDto();
         sequenceDto.setDna(Arrays.asList(dnaStructure));
         this.mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/v1/mutants/mutants")
+                MockMvcRequestBuilders.post("/api/v1/mutants/mutant")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(sequenceDto))

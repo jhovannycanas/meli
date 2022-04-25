@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,13 +23,13 @@ public interface MutantApi {
             @ApiResponse(code = 200, message = "ok"),
             @ApiResponse(code = 403, message = "request has been refused"),
             @ApiResponse(code = 500, message = "internal server error") })
-    @RequestMapping(value = "/mutants",
+    @RequestMapping(value = "/mutant",
             produces = { "application/json" },
             consumes = { "application/json" },
             method = RequestMethod.POST)
     ResponseEntity<Void> mutant(@Valid @RequestBody SequenceDto sequenceDto);
 
-    @ApiOperation(value = "Get statistics", nickname = "mutant",
+    @ApiOperation(value = "Get statistics", nickname = "stats",
             notes = "<h3>Get statistics of validation of sequences.</h3>", tags={ "Mutant", })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "timestamping service created")})
